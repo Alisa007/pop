@@ -1,5 +1,3 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
- 
 export type Item = {
   name: string;
   _id?: string,
@@ -23,17 +21,3 @@ export const getData = async ({offset, limit}: {offset: number | string, limit: 
   return json.docs;
 }
  
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<ApiResponse>
-) {
-  const {offset = 0, limit = 0} = req.query;
-
-  if (Array.isArray(offset) || Array.isArray(limit)) {
-    throw('Invalid query params');
-  }
-
-  return res.status(200).json({
-      items: await getData({offset, limit}),
-  })
-}
